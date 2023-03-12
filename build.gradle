@@ -1,0 +1,30 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+
+        dependencies {
+            classpath 'com.android.tools.build:gradle:7.0.2'
+            classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.0'
+        }
+    }
+}
+
+ext {
+    room_version = "2.1.0"
+    koin_version = "3.1.2"
+
+    // Room
+    RoomRuntime = "androidx.room:room-runtime:$room_version"
+    RoomCompiler = "androidx.room:room-compiler:$room_version"
+    RoomForRxJava = "androidx.room:room-rxjava2:$room_version"
+
+    // Koin
+    KoinCore = "io.insert-koin:koin-core:$koin_version"
+    KoinAndroid = "io.insert-koin:koin-android:$koin_version"
+
+    //Rx
+    rxJava = "io.reactivex.rxjava2:rxjava:2.2.17"
+    rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
+}
