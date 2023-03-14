@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">JKShop</string>
+    <string name="please_enter_user_name">請輸入UserName</string>
+    <string name="btn_login">登入</string>
 </resources>
