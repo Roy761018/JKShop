@@ -1,4 +1,4 @@
-package com.example.jkshop
+package com.example.jkshop.layer.shoplist
 
 import android.os.Bundle
 import android.os.PersistableBundle

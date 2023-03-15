@@ -3,6 +3,7 @@ package com.example.jkshop.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.jkshop.model.UserEntity
 
 /**
  *  用戶相關功能
@@ -11,9 +12,9 @@ import androidx.room.Query
 @Dao
 interface UserDao {
 
-    @Query("SELECT user_name FROM UserEntity WHERE uid IN (:userName)")
+    @Query("SELECT user_name FROM UserEntity WHERE user_name IN (:userName)")
     fun getUser(userName: String) : String?
 
     @Insert
-    fun userRegister(userName: String)
+    fun userRegister(user: UserEntity)
 }

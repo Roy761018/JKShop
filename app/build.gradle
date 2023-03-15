@@ -43,11 +43,16 @@ dependencies {
 
     // Room
     implementation rootProject.ext.RoomRuntime
-    annotationProcessor rootProject.ext.RoomCompiler
+    kapt rootProject.ext.RoomCompiler
     implementation rootProject.ext.RoomForRxJava
 
     //Koin
     implementation rootProject.ext.KoinCore
     implementation rootProject.ext.KoinAndroid
+
+    //RX
+    implementation rootProject.ext.rxJava
+    implementation rootProject.ext.rxKotlin
+    implementation rootProject.ext.rxAndroid
 
 }
