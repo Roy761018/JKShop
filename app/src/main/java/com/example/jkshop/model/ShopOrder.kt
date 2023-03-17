@@ -1,7 +1,7 @@
 package com.example.jkshop.model
 
 data class ShopOrder(
-    val shopItemList: ArrayList<ShopItem>,
+    val shopItemEntityList: ArrayList<ShopItemEntity>,
     val orderCreateTime: String,
     val orderPrice: Int
 )

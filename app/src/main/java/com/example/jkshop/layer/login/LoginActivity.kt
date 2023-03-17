@@ -4,11 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import com.example.jkshop.R
 import com.example.jkshop.layer.shoplist.JkoShopListActivity
 import com.example.jkshop.databinding.ActivityLoginBinding
 import com.example.jkshop.model.UserEntity
+import com.example.jkshop.util.JkShopStaticValue
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.system.exitProcess
 
@@ -23,6 +26,13 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initToolBar()
+
+        if (JkShopStaticValue.getNowUserName().isNotBlank()) {
+            goToShopList()
+            return
+        }
+
         binding.btnLogin.setOnClickListener {
             viewModel.checkUserExist(userName = binding.etUserNameInput.text.toString())
         }
@@ -30,14 +40,24 @@ class LoginActivity : AppCompatActivity() {
         observeData()
     }
 
+    private fun initToolBar() {
+        with(binding.toolbar) {
+            setSupportActionBar(this)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            title = getString(R.string.btn_login)
+        }
+    }
+
     private fun observeData() {
         viewModel.apply {
             isLoginSuccess.observe(this@LoginActivity) { success ->
                 if (success) {
-                    Toast.makeText(this@LoginActivity, "登入成功，歡迎使用", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@LoginActivity, JkoShopListActivity::class.java))
+                    JkShopStaticValue.setNowUserName(binding.etUserNameInput.text.toString())
+                    Toast.makeText(this@LoginActivity, getString(R.string.login_success_slogan), Toast.LENGTH_SHORT).show()
+                    goToShopList()
                 } else {
-                    Toast.makeText(this@LoginActivity, "登入失敗", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, getString(R.string.login_fail), Toast.LENGTH_SHORT).show()
                 }
             }
             isUserNotExist.observe(this@LoginActivity) {
@@ -45,6 +65,11 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.userRegister(UserEntity(uid = 0, userName = binding.etUserNameInput.text.toString()))
             }
         }
+    }
+
+    private fun goToShopList() {
+        startActivity(Intent(this@LoginActivity, JkoShopListActivity::class.java))
+        finish()
     }
 
     fun <T> LifecycleOwner.observe(liveData: LiveData<T>, action: (T)-> Unit) {

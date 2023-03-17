@@ -2,4 +2,14 @@
     <string name="app_name">JKShop</string>
     <string name="please_enter_user_name">請輸入UserName</string>
     <string name="btn_login">登入</string>
+    <string name="welcome_title">您好，%s 歡迎來到JKOShop</string>
+    <string name="btn_ok">確認</string>
+    <string name="btn_cancel">取消</string>
+    <string name="alert_title">系統訊息</string>
+    <string name="alert_msg">取得資料失敗，請按確認重試</string>
+    <string name="login_success_slogan">登入成功，歡迎使用</string>
+    <string name="login_fail">登入失敗</string>
+
+    <!-- Title -->
+    <string name="toolbar_title_shop_list">商品列表</string>
 </resources>
