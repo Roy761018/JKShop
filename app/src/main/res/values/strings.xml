@@ -9,7 +9,12 @@
     <string name="alert_msg">取得資料失敗，請按確認重試</string>
     <string name="login_success_slogan">登入成功，歡迎使用</string>
     <string name="login_fail">登入失敗</string>
+    <string name="buy_now">立即購買</string>
+    <string name="add_to_cart">加入購物車</string>
+    <string name="shop_item_price_text">商品價格：%s 元</string>
+    <string name="shop_item_id_text">商品編號：%s</string>
 
     <!-- Title -->
     <string name="toolbar_title_shop_list">商品列表</string>
+    <string name="toolbar_title_shop_detail">商品資訊</string>
 </resources>

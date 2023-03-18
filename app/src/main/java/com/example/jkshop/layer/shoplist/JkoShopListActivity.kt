@@ -8,6 +8,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jkshop.R
 import com.example.jkshop.databinding.ActivityShopListBinding
+import com.example.jkshop.layer.shopdetail.JkoShopDetailActivity
+import com.example.jkshop.layer.shopdetail.JkoShopDetailActivity.Companion.EXTRA_SHOP_ITEM_ID
 import com.example.jkshop.util.JkShopStaticValue
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.system.exitProcess
@@ -31,8 +33,11 @@ class JkoShopListActivity: AppCompatActivity() {
 
         with(binding.rvShopList) {
             layoutManager = LinearLayoutManager(this@JkoShopListActivity, LinearLayoutManager.VERTICAL, false)
-            shopListAdapter = JkoShopListAdapter {
-                // TODO 到 Detail頁
+            shopListAdapter = JkoShopListAdapter { item ->
+                Intent(this@JkoShopListActivity, JkoShopDetailActivity::class.java).apply {
+                    putExtra(EXTRA_SHOP_ITEM_ID, item.shopId)
+                    startActivity(this)
+                }
             }
             adapter = shopListAdapter
         }

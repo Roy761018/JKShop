@@ -28,6 +28,25 @@ class ShopRepository(private val roomManager: RoomManager) {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    fun getShopItemDetail(id: String): Single<ShopItemEntity> {
+        return Single.create<ShopItemEntity> {
+            try {
+                roomManager.getRoomDB().getShopItemDao().getShopItemDetail(id)?.run {
+                    it.onSuccess(this)
+                } ?: run {
+                    it.onError(NullPointerException("ShopItem is null"))
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                it.onError(e)
+            }
+
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
     fun insertShopList(shopList: List<ShopItemEntity>): Single<Unit> {
         return Single.create<Unit> {
             try {

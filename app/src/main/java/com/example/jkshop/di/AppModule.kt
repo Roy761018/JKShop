@@ -1,6 +1,7 @@
 package com.example.jkshop.di
 
 import com.example.jkshop.layer.login.LoginViewModel
+import com.example.jkshop.layer.shopdetail.JkoShopDetailViewModel
 import com.example.jkshop.layer.shoplist.JkoShopListViewModel
 import com.example.jkshop.manager.RoomManager
 import org.koin.android.ext.koin.androidContext
@@ -14,5 +15,6 @@ val appModules = module {
     // ViewModel
     viewModel { LoginViewModel(get()) }
     viewModel { JkoShopListViewModel(get()) }
+    viewModel { JkoShopDetailViewModel(get()) }
 
 }

@@ -48,11 +48,11 @@ class JkoShopListViewModel(private val shopRepository: ShopRepository): BaseView
         return mutableListOf<ShopItemEntity>().apply {
             for (i in 0..50) {
                 this.add(ShopItemEntity(
+                    shopId = "A100$i",
                     name = "商品名稱$i",
                     description = "這是商品名稱$i" + "的說明",
                     price = 100,
-                    createTime = "2023/3/1",
-                    img = ""
+                    createTime = "2023/3/1"
                 ))
             }
         }

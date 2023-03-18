@@ -17,4 +17,7 @@ interface ShopItemDao {
 
     @Query("SELECT * FROM ShopItemEntity")
     fun getShopItemList(): List<ShopItemEntity>?
+
+    @Query("SELECT * FROM ShopItemEntity WHERE shop_id in (:id)")
+    fun getShopItemDetail(id: String): ShopItemEntity?
 }
