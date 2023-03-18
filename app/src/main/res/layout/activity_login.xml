@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:minHeight="?android:attr/actionBarSize"/>
+        android:background="@color/purple_500"
+        android:minHeight="?android:attr/actionBarSize"
+        app:titleTextColor="@color/white"/>
 
     <TextView
         android:id="@+id/tv_title"

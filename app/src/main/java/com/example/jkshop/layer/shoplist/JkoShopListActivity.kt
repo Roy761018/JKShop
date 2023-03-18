@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jkshop.R
 import com.example.jkshop.databinding.ActivityShopListBinding
+import com.example.jkshop.layer.shopcart.JkoShopCartActivity
 import com.example.jkshop.layer.shopdetail.JkoShopDetailActivity
 import com.example.jkshop.layer.shopdetail.JkoShopDetailActivity.Companion.EXTRA_SHOP_ITEM_ID
 import com.example.jkshop.util.JkShopStaticValue
@@ -44,6 +45,10 @@ class JkoShopListActivity: AppCompatActivity() {
 
         binding.ivMyInfo.setOnClickListener {
             // TODO My page
+        }
+
+        binding.btnGoToCart.setOnClickListener {
+            startActivity(Intent(this@JkoShopListActivity, JkoShopCartActivity::class.java))
         }
 
         jkoShopListViewModel.getShopList()

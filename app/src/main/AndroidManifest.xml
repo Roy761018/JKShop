@@ -28,6 +28,9 @@
         <activity
             android:name=".layer.shopdetail.JkoShopDetailActivity">
         </activity>
+        <activity
+            android:name=".layer.shopcart.JkoShopCartActivity">
+        </activity>
     </application>
 
 </manifest>

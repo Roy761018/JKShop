@@ -44,7 +44,7 @@ class LoginActivity : AppCompatActivity() {
         with(binding.toolbar) {
             setSupportActionBar(this)
             supportActionBar?.setDisplayShowTitleEnabled(false)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
             title = getString(R.string.btn_login)
         }
     }

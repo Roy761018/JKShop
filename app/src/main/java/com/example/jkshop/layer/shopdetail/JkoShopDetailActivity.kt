@@ -1,6 +1,7 @@
 package com.example.jkshop.layer.shopdetail
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.jkshop.R
@@ -27,7 +28,7 @@ class JkoShopDetailActivity: AppCompatActivity() {
         viewModel.getShopDetail(intent.extras?.getString(EXTRA_SHOP_ITEM_ID, "").toString())
 
         binding.btnAddToCart.setOnClickListener {
-
+            viewModel.addItemToShopCart()
         }
 
         binding.btnByNow.setOnClickListener {
@@ -59,6 +60,14 @@ class JkoShopDetailActivity: AppCompatActivity() {
                 binding.tvDescription.text = it.description
                 binding.tvShopId.text = getString(R.string.shop_item_id_text, it.shopId)
                 binding.tvPrice.text = getString(R.string.shop_item_price_text, it.price.toString())
+            }
+            isAddSuccess.observe(this@JkoShopDetailActivity) { isSuccess ->
+                if (isSuccess) {
+                    Toast.makeText(this@JkoShopDetailActivity, getString(R.string.add_to_cart_success), Toast.LENGTH_SHORT).show()
+                    onBackPressed()
+                } else {
+                    Toast.makeText(this@JkoShopDetailActivity, getString(R.string.add_to_cart_fail), Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
