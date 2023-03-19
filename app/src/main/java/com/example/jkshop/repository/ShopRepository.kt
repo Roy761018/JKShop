@@ -97,4 +97,20 @@ class ShopRepository(private val roomManager: RoomManager) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun clearShopCart(): Single<Unit> {
+        return Single.create<Unit> {
+            try {
+                val username = JkShopStaticValue.getNowUserName()
+                roomManager.getRoomDB().getShopItemDao().clearShoppingCartByUserName(username)
+                it.onSuccess(Unit)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                it.onError(e)
+            }
+
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
 }

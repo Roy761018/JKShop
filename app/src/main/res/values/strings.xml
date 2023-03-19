@@ -13,16 +13,21 @@
     <string name="check_out">結帳</string>
     <string name="check_out_now">立即結帳</string>
     <string name="add_to_cart">加入購物車</string>
-    <string name="shop_item_price_text">商品價格：%s 元</string>
+    <string name="shop_item_price_text">商品價格：$ %s</string>
     <string name="shop_item_id_text">商品編號：%s</string>
     <string name="check_shop_cart">查看購物車</string>
     <string name="add_to_cart_success">加入至購物車成功</string>
     <string name="add_to_cart_fail">加入至購物車失敗，請重新嘗試</string>
     <string name="shop_cart_title">%s，請勾選需要結帳的項目</string>
+    <string name="check_out_title">請確認以下欲購買商品資料是否正確</string>
+    <string name="order_commit">提交訂單</string>
+    <string name="order_commit_success_msg">購買成功，可以至我的頁面查看訂單記錄</string>
+    <string name="order_price">訂單金額：$ %s</string>
 
 
     <!-- Title -->
     <string name="toolbar_title_shop_list">商品列表</string>
     <string name="toolbar_title_shop_detail">商品資訊</string>
     <string name="toolbar_title_shop_car">購物車</string>
+    <string name="toolbar_title_order_confirm">確認訂單</string>
 </resources>

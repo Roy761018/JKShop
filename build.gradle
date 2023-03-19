@@ -28,4 +28,7 @@ ext {
     rxJava = "io.reactivex.rxjava2:rxjava:2.2.17"
     rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
     rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
+
+    // Gson
+    GSON = 'com.google.code.gson:gson:2.8.7'
 }

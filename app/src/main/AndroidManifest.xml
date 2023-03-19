@@ -31,6 +31,9 @@
         <activity
             android:name=".layer.shopcart.JkoShopCartActivity">
         </activity>
+        <activity
+            android:name=".layer.order.JkoShopOrderConfirmActivity">
+        </activity>
     </application>
 
 </manifest>

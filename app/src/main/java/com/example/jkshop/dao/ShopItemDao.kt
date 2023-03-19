@@ -28,4 +28,7 @@ interface ShopItemDao {
     @Query("SELECT * FROM ShoppingCartEntity INNER JOIN ShopItemEntity ON buyerShopItemId = shop_id" +
             " WHERE buyerUserName in (:userName)")
     fun getShoppingCartItemList(userName: String): List<ShopItemEntity>?
+
+    @Query("DELETE FROM ShoppingCartEntity WHERE buyerUserName = (:userName)")
+    fun clearShoppingCartByUserName(userName: String)
 }
