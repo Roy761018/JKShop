@@ -17,5 +17,8 @@ interface OrderDao {
     fun generateOrder(orderEntity: ShopOrderEntity)
 
     @Query("SELECT * FROM ShopOrderEntity WHERE buyerUsername = (:userName)")
-    fun getUserOrder(userName: String): ShopOrderEntity?
+    fun getUserOrder(userName: String): List<ShopOrderEntity>?
+
+    @Query("DELETE FROM ShopOrderEntity WHERE order_id = (:orderID)")
+    fun deleteOrderHistory(orderID: String)
 }

@@ -1,17 +1,21 @@
 package com.example.jkshop.layer.shopdetail
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.jkshop.R
 import com.example.jkshop.databinding.ActivityShopDetailBinding
+import com.example.jkshop.layer.order.JkoShopOrderConfirmActivity
+import com.example.jkshop.model.ShopItemEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class JkoShopDetailActivity: AppCompatActivity() {
 
     companion object {
         const val EXTRA_SHOP_ITEM_ID = "EXTRA_SHOP_ITEM_ID"
+        private const val EXTRA_SHOP_ORDER_LIST = "EXTRA_SHOP_ORDER_LIST"
     }
 
     private lateinit var binding: ActivityShopDetailBinding
@@ -32,7 +36,12 @@ class JkoShopDetailActivity: AppCompatActivity() {
         }
 
         binding.btnByNow.setOnClickListener {
-
+            viewModel.getShopItem()?.let { shopItem ->
+                Intent(this@JkoShopDetailActivity, JkoShopOrderConfirmActivity::class.java).apply {
+                    putExtra(EXTRA_SHOP_ORDER_LIST, arrayListOf(shopItem))
+                    startActivity(this)
+                }
+            }
         }
 
         observeData()

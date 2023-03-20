@@ -1,6 +1,7 @@
 package com.example.jkshop.di
 
 import com.example.jkshop.layer.login.LoginViewModel
+import com.example.jkshop.layer.my.MyInfoViewModel
 import com.example.jkshop.layer.order.JkoShopOrderConfirmViewModel
 import com.example.jkshop.layer.shopcart.JkoShopCartViewModel
 import com.example.jkshop.layer.shopdetail.JkoShopDetailViewModel
@@ -20,5 +21,6 @@ val appModules = module {
     viewModel { JkoShopDetailViewModel(get()) }
     viewModel { JkoShopCartViewModel(get()) }
     viewModel { JkoShopOrderConfirmViewModel(get(), get()) }
+    viewModel { MyInfoViewModel(get()) }
 
 }

@@ -47,4 +47,8 @@ class JkoShopDetailViewModel(private val shopRepository: ShopRepository): BaseVi
             compositeDisposable.add(this)
         }
     }
+
+    fun getShopItem(): ShopItemEntity? {
+        return _getShopItem.value
+    }
 }

@@ -13,4 +13,13 @@ open class BaseViewModel: ViewModel() {
     protected val _errorAlert = MutableLiveData<() -> Unit>()
     val errorAlert: LiveData<() -> Unit>
         get() = _errorAlert
+
+    protected val _errorToast = MutableLiveData<Unit>()
+    val errorToast: LiveData<Unit>
+        get() = _errorToast
+
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
+    }
 }

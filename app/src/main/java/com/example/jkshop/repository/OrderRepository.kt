@@ -26,8 +26,8 @@ class OrderRepository(private val roomManager: RoomManager) {
             .observeOn(AndroidSchedulers.mainThread())
     }
 
-    fun getUserOrder(): Single<ShopOrderEntity> {
-        return Single.create<ShopOrderEntity> {
+    fun getUserOrder(): Single<List<ShopOrderEntity>> {
+        return Single.create<List<ShopOrderEntity>> {
             try {
                 val username = JkShopStaticValue.getNowUserName()
                 roomManager.getRoomDB().getOrderDao().getUserOrder(username)?.run {
@@ -35,6 +35,21 @@ class OrderRepository(private val roomManager: RoomManager) {
                 } ?: run {
                     it.onError(NullPointerException("Order is null"))
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                it.onError(e)
+            }
+
+        }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun deleteOrderHistory(orderID: String): Single<Unit> {
+        return Single.create<Unit> {
+            try {
+                roomManager.getRoomDB().getOrderDao().deleteOrderHistory(orderID)
+                it.onSuccess(Unit)
             } catch (e: Exception) {
                 e.printStackTrace()
                 it.onError(e)
