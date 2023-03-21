@@ -2,6 +2,7 @@ package com.example.jkshop.layer.shopdetail
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.jkshop.R
@@ -22,6 +23,12 @@ class JkoShopDetailActivity: AppCompatActivity() {
 
     private val viewModel: JkoShopDetailViewModel by viewModel()
 
+    private val orderConfirmResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            onBackPressed()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShopDetailBinding.inflate(layoutInflater)
@@ -39,7 +46,7 @@ class JkoShopDetailActivity: AppCompatActivity() {
             viewModel.getShopItem()?.let { shopItem ->
                 Intent(this@JkoShopDetailActivity, JkoShopOrderConfirmActivity::class.java).apply {
                     putExtra(EXTRA_SHOP_ORDER_LIST, arrayListOf(shopItem))
-                    startActivity(this)
+                    orderConfirmResultLauncher.launch(this)
                 }
             }
         }

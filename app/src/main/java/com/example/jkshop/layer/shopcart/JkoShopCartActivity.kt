@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.jkshop.R
@@ -26,6 +27,12 @@ class JkoShopCartActivity: AppCompatActivity() {
 
     private val viewModel: JkoShopCartViewModel by viewModel()
 
+    private val orderConfirmResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            onBackPressed()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShopCartBinding.inflate(layoutInflater)
@@ -38,7 +45,7 @@ class JkoShopCartActivity: AppCompatActivity() {
         binding.btnCheckOut.setOnClickListener {
             Intent(this@JkoShopCartActivity, JkoShopOrderConfirmActivity::class.java).apply {
                 putExtra(EXTRA_SHOP_ORDER_LIST, viewModel.buyList)
-                startActivity(this)
+                orderConfirmResultLauncher.launch(this)
             }
         }
 

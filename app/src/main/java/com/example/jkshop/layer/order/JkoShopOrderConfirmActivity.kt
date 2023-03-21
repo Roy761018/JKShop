@@ -77,6 +77,8 @@ class JkoShopOrderConfirmActivity: AppCompatActivity() {
             observeLiveData(isSuccess) {
                 showToastMsg(getString(R.string.order_commit_success_msg))
                 viewModel.clearShopCart()
+                setResult(RESULT_OK)
+                finish()
             }
             observeLiveData(setOrderPriceView) { totalPrice ->
                 binding.tvTotalMoney.text = getString(R.string.order_price, totalPrice.toString())
