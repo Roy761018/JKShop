@@ -2,14 +2,13 @@ package com.example.jkshop.layer.shopdetail
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.jkshop.R
 import com.example.jkshop.base.observeLiveData
+import com.example.jkshop.base.showToastMsg
 import com.example.jkshop.databinding.ActivityShopDetailBinding
 import com.example.jkshop.layer.order.JkoShopOrderConfirmActivity
-import com.example.jkshop.model.ShopItemEntity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class JkoShopDetailActivity: AppCompatActivity() {
@@ -73,10 +72,10 @@ class JkoShopDetailActivity: AppCompatActivity() {
             }
             observeLiveData(isAddSuccess) { isSuccess ->
                 if (isSuccess) {
-                    Toast.makeText(this@JkoShopDetailActivity, getString(R.string.add_to_cart_success), Toast.LENGTH_SHORT).show()
+                    showToastMsg(getString(R.string.add_to_cart_success))
                     onBackPressed()
                 } else {
-                    Toast.makeText(this@JkoShopDetailActivity, getString(R.string.add_to_cart_fail), Toast.LENGTH_SHORT).show()
+                    showToastMsg(getString(R.string.add_to_cart_fail))
                 }
             }
         }

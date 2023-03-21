@@ -3,12 +3,9 @@ package com.example.jkshop.layer.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import com.example.jkshop.R
 import com.example.jkshop.base.observeLiveData
+import com.example.jkshop.base.showToastMsg
 import com.example.jkshop.layer.shoplist.JkoShopListActivity
 import com.example.jkshop.databinding.ActivityLoginBinding
 import com.example.jkshop.model.UserEntity
@@ -55,14 +52,14 @@ class LoginActivity : AppCompatActivity() {
             observeLiveData(isLoginSuccess) { success ->
                 if (success) {
                     JkShopStaticValue.setNowUserName(binding.etUserNameInput.text.toString())
-                    Toast.makeText(this@LoginActivity, getString(R.string.login_success_slogan), Toast.LENGTH_SHORT).show()
+                    showToastMsg(getString(R.string.login_success_slogan))
                     goToShopList()
                 } else {
-                    Toast.makeText(this@LoginActivity, getString(R.string.login_fail), Toast.LENGTH_SHORT).show()
+                    showToastMsg(getString(R.string.login_fail))
                 }
             }
             observeLiveData(isUserNotExist) {
-                Toast.makeText(this@LoginActivity, "沒有您的資料，已幫你自動註冊", Toast.LENGTH_SHORT).show()
+                showToastMsg(getString(R.string.login_user_is_not_exist))
                 viewModel.userRegister(UserEntity(uid = 0, userName = binding.etUserNameInput.text.toString()))
             }
         }

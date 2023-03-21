@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jkshop.R
 import com.example.jkshop.base.observeLiveData
+import com.example.jkshop.base.showAlertDialog
 import com.example.jkshop.databinding.ActivityShopListBinding
 import com.example.jkshop.layer.my.MyInfoActivity
 import com.example.jkshop.layer.shopcart.JkoShopCartActivity
@@ -82,16 +83,8 @@ class JkoShopListActivity: AppCompatActivity() {
                 shopListAdapter?.notifyDataSetChanged()
             }
             observeLiveData(errorAlert) { retryAction ->
-                AlertDialog.Builder(this@JkoShopListActivity).apply {
-                    setTitle(getString(R.string.alert_title))
-                    setMessage(getString(R.string.alert_msg))
-                    setPositiveButton(getString(R.string.btn_ok)) { _, _ ->
-                        retryAction.invoke()
-                    }
-                    setNegativeButton(getString(R.string.btn_cancel)) { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                    if (!isFinishing) show()
+                if (!isFinishing) {
+                    showAlertDialog(getString(R.string.alert_msg), retryAction)
                 }
             }
         }

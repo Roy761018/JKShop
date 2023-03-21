@@ -9,6 +9,7 @@
     <string name="alert_msg">取得資料失敗，請按確認重試</string>
     <string name="login_success_slogan">登入成功，歡迎使用</string>
     <string name="login_fail">登入失敗</string>
+    <string name="login_user_is_not_exist">沒有您的資料，已幫你自動註冊</string>
     <string name="buy_now">立即購買</string>
     <string name="check_out">結帳</string>
     <string name="log_out">登出</string>

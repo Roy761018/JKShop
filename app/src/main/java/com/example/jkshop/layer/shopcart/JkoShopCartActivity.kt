@@ -18,7 +18,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class JkoShopCartActivity: AppCompatActivity() {
 
     companion object {
-        const val EXTRA_SHOP_ITEM_ID = "EXTRA_SHOP_ITEM_ID"
         private const val EXTRA_SHOP_ORDER_LIST = "EXTRA_SHOP_ORDER_LIST"
 
     }

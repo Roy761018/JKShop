@@ -3,12 +3,12 @@ package com.example.jkshop.layer.my
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jkshop.R
 import com.example.jkshop.base.observeLiveData
+import com.example.jkshop.base.showToastMsg
 import com.example.jkshop.databinding.ActivityMyInfoBinding
 import com.example.jkshop.layer.login.LoginActivity
 import com.example.jkshop.util.JkShopStaticValue
@@ -83,8 +83,7 @@ class MyInfoActivity: AppCompatActivity() {
                 }
             }
             observeLiveData(isDeleteSuccess) { success ->
-                Toast.makeText(this@MyInfoActivity,
-                    if (success) getString(R.string.delete_order_success) else getString(R.string.delete_order_fail), Toast.LENGTH_SHORT).show()
+                showToastMsg(if (success) getString(R.string.delete_order_success) else getString(R.string.delete_order_fail))
             }
         }
     }

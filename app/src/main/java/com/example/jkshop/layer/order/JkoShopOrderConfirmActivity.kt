@@ -2,11 +2,11 @@ package com.example.jkshop.layer.order
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.jkshop.R
 import com.example.jkshop.base.observeLiveData
+import com.example.jkshop.base.showToastMsg
 import com.example.jkshop.databinding.ActivityOrderConfirmBinding
 import com.example.jkshop.databinding.ItemOrderListBinding
 import com.example.jkshop.model.ShopItemEntity
@@ -75,7 +75,7 @@ class JkoShopOrderConfirmActivity: AppCompatActivity() {
     private fun observeData() {
         viewModel.apply {
             observeLiveData(isSuccess) {
-                Toast.makeText(this@JkoShopOrderConfirmActivity, getString(R.string.order_commit_success_msg), Toast.LENGTH_SHORT).show()
+                showToastMsg(getString(R.string.order_commit_success_msg))
                 viewModel.clearShopCart()
             }
             observeLiveData(setOrderPriceView) { totalPrice ->
