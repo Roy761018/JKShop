@@ -3,12 +3,8 @@ package com.example.jkshop.layer.my
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.jkshop.base.viewmodel.BaseViewModel
-import com.example.jkshop.model.ShopItemEntity
 import com.example.jkshop.model.ShopOrderEntity
 import com.example.jkshop.repository.OrderRepository
-import com.example.jkshop.repository.ShopRepository
-import com.example.jkshop.util.JkShopStaticValue
-import java.util.UUID
 
 class MyInfoViewModel(private val orderRepository: OrderRepository): BaseViewModel() {
 
@@ -21,7 +17,7 @@ class MyInfoViewModel(private val orderRepository: OrderRepository): BaseViewMod
         get() = _isDeleteSuccess
 
     fun getOrderHistory() {
-        orderRepository.getUserOrder().subscribe(
+        orderRepository.getUserOrderHistory().subscribe(
             {
                 _setOrderHistoryView.value = it
             },
@@ -36,7 +32,7 @@ class MyInfoViewModel(private val orderRepository: OrderRepository): BaseViewMod
 
     fun deleteOrderHistory(orderID: String) {
         orderRepository.deleteOrderHistory(orderID).flatMap {
-            orderRepository.getUserOrder()
+            orderRepository.getUserOrderHistory()
         }.subscribe(
             {
                 _isDeleteSuccess.value = true

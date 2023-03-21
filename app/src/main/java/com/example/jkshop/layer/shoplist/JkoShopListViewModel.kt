@@ -15,7 +15,7 @@ class JkoShopListViewModel(private val shopRepository: ShopRepository): BaseView
     fun getShopList() {
         shopRepository.getShopItemList().subscribe(
             {
-                if (it.isNotEmpty()) {
+                if (it?.isNotEmpty() == true) {
                     _getShopList.value = it
                 } else {
                     initDefaultShopList(generateShopList())

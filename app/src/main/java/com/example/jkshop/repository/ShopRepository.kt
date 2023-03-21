@@ -1,5 +1,6 @@
 package com.example.jkshop.repository
 
+import com.example.jkshop.base.BaseRepository
 import com.example.jkshop.manager.RoomManager
 import com.example.jkshop.model.ShopItemEntity
 import com.example.jkshop.model.ShoppingCartEntity
@@ -9,108 +10,33 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class ShopRepository(private val roomManager: RoomManager) {
+class ShopRepository(private val roomManager: RoomManager): BaseRepository() {
 
-    fun getShopItemList(): Single<List<ShopItemEntity>> {
-        return Single.create<List<ShopItemEntity>> {
-            try {
-                roomManager.getRoomDB().getShopItemDao().getShopItemList()?.run {
-                    it.onSuccess(this)
-                } ?: run {
-                    it.onError(NullPointerException("List is null"))
-                }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                it.onError(e)
-            }
-
-        }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+    fun getShopItemList(): Single<List<ShopItemEntity>?> {
+        return createSingle { roomManager.getRoomDB().getShopItemDao().getShopItemList() }
     }
 
-    fun getShopItemDetail(id: String): Single<ShopItemEntity> {
-        return Single.create<ShopItemEntity> {
-            try {
-                roomManager.getRoomDB().getShopItemDao().getShopItemDetail(id)?.run {
-                    it.onSuccess(this)
-                } ?: run {
-                    it.onError(NullPointerException("ShopItem is null"))
-                }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                it.onError(e)
-            }
-
-        }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+    fun getShopItemDetail(id: String): Single<ShopItemEntity?> {
+        return createSingle { roomManager.getRoomDB().getShopItemDao().getShopItemDetail(id) }
     }
 
     fun insertShopList(shopList: List<ShopItemEntity>): Single<Unit> {
-        return Single.create<Unit> {
-            try {
-                roomManager.getRoomDB().getShopItemDao().insertShopItemList(shopList)
-                it.onSuccess(Unit)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                it.onError(e)
-            }
-
-        }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        return createSingle { roomManager.getRoomDB().getShopItemDao().insertShopItemList(shopList) }
     }
 
     fun insertShopCartItem(shopCartItem: ShoppingCartEntity): Single<Unit> {
-        return Single.create<Unit> {
-            try {
-                roomManager.getRoomDB().getShopItemDao().insertItemToShopCart(shopCartItem)
-                it.onSuccess(Unit)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                it.onError(e)
-            }
-
-        }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        return createSingle { roomManager.getRoomDB().getShopItemDao().insertItemToShopCart(shopCartItem) }
     }
 
-    fun getShoppingCartList(): Single<List<ShopItemEntity>> {
-        return Single.create<List<ShopItemEntity>> {
-            try {
-                val username = JkShopStaticValue.getNowUserName()
-                roomManager.getRoomDB().getShopItemDao().getShoppingCartItemList(username)?.run {
-                    it.onSuccess(this)
-                } ?: run {
-                    it.onError(NullPointerException("ShopItem is null"))
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                it.onError(e)
-            }
-
+    fun getShoppingCartList(): Single<List<ShopItemEntity>?> {
+        return createSingle { val username = JkShopStaticValue.getNowUserName()
+            roomManager.getRoomDB().getShopItemDao().getShoppingCartItemList(username)
         }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 
     fun clearShopCart(): Single<Unit> {
-        return Single.create<Unit> {
-            try {
-                val username = JkShopStaticValue.getNowUserName()
-                roomManager.getRoomDB().getShopItemDao().clearShoppingCartByUserName(username)
-                it.onSuccess(Unit)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                it.onError(e)
-            }
-
+        return createSingle { val username = JkShopStaticValue.getNowUserName()
+            roomManager.getRoomDB().getShopItemDao().clearShoppingCartByUserName(username)
         }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 }
