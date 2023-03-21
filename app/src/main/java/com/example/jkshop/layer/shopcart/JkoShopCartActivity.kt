@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.jkshop.R
+import com.example.jkshop.base.observeLiveData
 import com.example.jkshop.databinding.ActivityShopCartBinding
 import com.example.jkshop.databinding.ItemShoppingCartBinding
 import com.example.jkshop.layer.order.JkoShopOrderConfirmActivity
@@ -64,7 +65,7 @@ class JkoShopCartActivity: AppCompatActivity() {
 
     private fun observeData() {
         viewModel.apply {
-            getShoppingCartList.observe(this@JkoShopCartActivity) { cartList ->
+            observeLiveData(getShoppingCartList) { cartList ->
                 if (cartList.isNotEmpty()) {
                     binding.scrollView.visibility = View.VISIBLE
                     binding.tvNoResult.visibility = View.GONE
@@ -91,7 +92,7 @@ class JkoShopCartActivity: AppCompatActivity() {
                     binding.tvNoResult.visibility = View.VISIBLE
                 }
             }
-            isBtnEnable.observe(this@JkoShopCartActivity) { enable ->
+            observeLiveData(isBtnEnable) { enable ->
                 binding.btnCheckOut.isEnabled = enable
             }
         }

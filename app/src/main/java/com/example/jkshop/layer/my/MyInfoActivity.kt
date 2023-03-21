@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jkshop.R
+import com.example.jkshop.base.observeLiveData
 import com.example.jkshop.databinding.ActivityMyInfoBinding
 import com.example.jkshop.layer.login.LoginActivity
 import com.example.jkshop.util.JkShopStaticValue
@@ -69,7 +70,7 @@ class MyInfoActivity: AppCompatActivity() {
 
     private fun observeData() {
         viewModel.apply {
-            setOrderHistoryView.observe(this@MyInfoActivity) {
+            observeLiveData(setOrderHistoryView) {
                 if (it.isNotEmpty()) {
                     binding.tvNoResult.visibility = View.GONE
                     binding.rvOrderHistoryList.visibility = View.VISIBLE
@@ -81,7 +82,7 @@ class MyInfoActivity: AppCompatActivity() {
                     binding.rvOrderHistoryList.visibility = View.GONE
                 }
             }
-            isDeleteSuccess.observe(this@MyInfoActivity) { success ->
+            observeLiveData(isDeleteSuccess) { success ->
                 Toast.makeText(this@MyInfoActivity,
                     if (success) getString(R.string.delete_order_success) else getString(R.string.delete_order_fail), Toast.LENGTH_SHORT).show()
             }

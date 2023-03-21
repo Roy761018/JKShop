@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.jkshop.R
+import com.example.jkshop.base.observeLiveData
 import com.example.jkshop.databinding.ActivityShopDetailBinding
 import com.example.jkshop.layer.order.JkoShopOrderConfirmActivity
 import com.example.jkshop.model.ShopItemEntity
@@ -64,13 +65,13 @@ class JkoShopDetailActivity: AppCompatActivity() {
 
     private fun observeData() {
         viewModel.apply {
-            getShopItem.observe(this@JkoShopDetailActivity) {
+            observeLiveData(getShopItem) {
                 binding.tvName.text = it.name
                 binding.tvDescription.text = it.description
                 binding.tvShopId.text = getString(R.string.shop_item_id_text, it.shopId)
                 binding.tvPrice.text = getString(R.string.shop_item_price_text, it.price.toString())
             }
-            isAddSuccess.observe(this@JkoShopDetailActivity) { isSuccess ->
+            observeLiveData(isAddSuccess) { isSuccess ->
                 if (isSuccess) {
                     Toast.makeText(this@JkoShopDetailActivity, getString(R.string.add_to_cart_success), Toast.LENGTH_SHORT).show()
                     onBackPressed()

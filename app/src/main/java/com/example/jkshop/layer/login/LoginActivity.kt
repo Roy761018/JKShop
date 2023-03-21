@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.example.jkshop.R
+import com.example.jkshop.base.observeLiveData
 import com.example.jkshop.layer.shoplist.JkoShopListActivity
 import com.example.jkshop.databinding.ActivityLoginBinding
 import com.example.jkshop.model.UserEntity
@@ -51,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun observeData() {
         viewModel.apply {
-            isLoginSuccess.observe(this@LoginActivity) { success ->
+            observeLiveData(isLoginSuccess) { success ->
                 if (success) {
                     JkShopStaticValue.setNowUserName(binding.etUserNameInput.text.toString())
                     Toast.makeText(this@LoginActivity, getString(R.string.login_success_slogan), Toast.LENGTH_SHORT).show()
@@ -60,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this@LoginActivity, getString(R.string.login_fail), Toast.LENGTH_SHORT).show()
                 }
             }
-            isUserNotExist.observe(this@LoginActivity) {
+            observeLiveData(isUserNotExist) {
                 Toast.makeText(this@LoginActivity, "沒有您的資料，已幫你自動註冊", Toast.LENGTH_SHORT).show()
                 viewModel.userRegister(UserEntity(uid = 0, userName = binding.etUserNameInput.text.toString()))
             }
@@ -70,12 +71,6 @@ class LoginActivity : AppCompatActivity() {
     private fun goToShopList() {
         startActivity(Intent(this@LoginActivity, JkoShopListActivity::class.java))
         finish()
-    }
-
-    fun <T> LifecycleOwner.observe(liveData: LiveData<T>, action: (T)-> Unit) {
-        liveData.observe(this) {
-            action.invoke(it)
-        }
     }
 
     override fun onBackPressed() {
