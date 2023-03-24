@@ -15,7 +15,7 @@ interface UserDao {
     /**
      *  取得用戶資料
      */
-    @Query("SELECT user_name FROM UserEntity WHERE user_name IN (:userName)")
+    @Query("SELECT user_name FROM UserEntity WHERE user_name = (:userName)")
     fun getUser(userName: String) : String?
 
     /**

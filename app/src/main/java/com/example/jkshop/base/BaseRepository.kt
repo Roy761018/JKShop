@@ -12,7 +12,7 @@ open class BaseRepository {
                 dbAction.invoke()?.run {
                     it.onSuccess(this)
                 } ?: run {
-                    it.onError(NullPointerException("User is null"))
+                    it.onError(NullPointerException("object is null"))
                 }
 
             } catch (e: Exception) {

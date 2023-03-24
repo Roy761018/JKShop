@@ -39,7 +39,7 @@ class MyOrderHistoryAdapter(private val deleteAction: (String) -> Unit): Recycle
 
             binging.llOrderItem.removeAllViews()
             shopOrderEntity.shopItemEntityList.forEach {
-                ItemShopListBinding.inflate(LayoutInflater.from(context)).apply {
+                ItemShopListBinding.inflate(LayoutInflater.from(context), binging.llOrderItem, false).apply {
                     tvName.text = it.name
                     tvPrice.text = it.price.toString()
                     binging.llOrderItem.addView(this.root)

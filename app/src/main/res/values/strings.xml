@@ -34,6 +34,7 @@
     <string name="my_title_view">用戶名稱：%s</string>
     <string name="delete_order_success">刪除訂單記錄成功</string>
     <string name="delete_order_fail">刪除失敗，請重新嘗試</string>
+    <string name="exit_message">確定要離開 JKOShop？</string>
 
 
     <!-- Title -->

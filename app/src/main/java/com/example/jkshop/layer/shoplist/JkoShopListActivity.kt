@@ -91,11 +91,14 @@ class JkoShopListActivity: AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        Intent(Intent.ACTION_MAIN).apply {
-            addCategory(Intent.CATEGORY_HOME)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(this)
-            exitProcess(0)
+        showAlertDialog(getString(R.string.exit_message)) {
+            Intent(Intent.ACTION_MAIN).apply {
+                addCategory(Intent.CATEGORY_HOME)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(this)
+                exitProcess(0)
+            }
         }
+
     }
 }

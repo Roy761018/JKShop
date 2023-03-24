@@ -8,10 +8,13 @@ import com.example.jkshop.model.ShopOrderEntity
 import com.example.jkshop.repository.OrderRepository
 import com.example.jkshop.repository.ShopRepository
 import com.example.jkshop.util.JkShopStaticValue
-import java.util.UUID
+import java.text.SimpleDateFormat
+import java.util.*
 
 class JkoShopOrderConfirmViewModel(private val orderRepository: OrderRepository,
                                    private val shopRepository: ShopRepository): BaseViewModel() {
+
+    private val simpleDateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.TAIWAN)
 
     var orderList = arrayListOf<ShopItemEntity>()
     var orderTotalPrice = 0
@@ -34,7 +37,7 @@ class JkoShopOrderConfirmViewModel(private val orderRepository: OrderRepository,
             orderID = UUID.randomUUID().toString(),
             buyerUsername = JkShopStaticValue.getNowUserName(),
             shopItemEntityList = orderList,
-            orderCreateTime = "2023/03/18",
+            orderCreateTime = simpleDateFormat.format(Date()),
             orderPrice = orderTotalPrice)
         orderRepository.orderConfirm(orderEntity).subscribe(
             {

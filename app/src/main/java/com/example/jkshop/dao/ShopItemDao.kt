@@ -28,7 +28,7 @@ interface ShopItemDao {
     /**
      *  取得商品詳細資訊
      */
-    @Query("SELECT * FROM ShopItemEntity WHERE shop_id in (:id)")
+    @Query("SELECT * FROM ShopItemEntity WHERE shop_id = (:id)")
     fun getShopItemDetail(id: String): ShopItemEntity?
 
     /**
@@ -41,7 +41,7 @@ interface ShopItemDao {
      *  取得購物車內商品的列表
      */
     @Query("SELECT * FROM ShoppingCartEntity INNER JOIN ShopItemEntity ON buyerShopItemId = shop_id" +
-            " WHERE buyerUserName in (:userName)")
+            " WHERE buyerUserName = (:userName)")
     fun getShoppingCartItemList(userName: String): List<ShopItemEntity>?
 
     /**
