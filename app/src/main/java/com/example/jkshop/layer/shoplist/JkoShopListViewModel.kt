@@ -16,13 +16,15 @@ class JkoShopListViewModel(private val shopRepository: ShopRepository): BaseView
     val getShopList: LiveData<List<ShopItemEntity>>
         get() = _getShopList
 
+    private val _initShopListSuccess = MutableLiveData<Unit>()
+    val initShopListSuccess: LiveData<Unit>
+        get() = _initShopListSuccess
+
     fun getShopList() {
         shopRepository.getShopItemList(pageItemCount = pageItemCount, offset = currentPage * pageItemCount).subscribe(
             {
                 if (it.isNotEmpty()) {
                     _getShopList.value = it
-                } else {
-                    // 做一個 swipeRefresh
                 }
             },
             {
@@ -38,8 +40,8 @@ class JkoShopListViewModel(private val shopRepository: ShopRepository): BaseView
         val defaultShopList = generateShopList()
         shopRepository.insertShopList(defaultShopList).subscribe(
             {
-                JkShopStaticValue.setInitShopList(true)
-                _getShopList.value = defaultShopList
+                JkShopStaticValue.setNeedInitShopList(false)
+                _initShopListSuccess.value = Unit
             },
             {
                 _errorAlert.value = {

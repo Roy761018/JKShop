@@ -62,7 +62,7 @@ class JkoShopOrderConfirmActivity: AppCompatActivity() {
             ItemOrderListBinding.inflate(LayoutInflater.from(this)).apply {
                 tvName.text = item.name
                 tvDescription.text = item.description
-                tvPrice.text = item.price.toString()
+                tvPrice.text = getString(R.string.dollars, item.price.toString())
 
                 viewModel.setOrderPrice(item.price)
                 viewModel.orderList.add(item)

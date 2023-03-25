@@ -28,11 +28,11 @@ object JkShopStaticValue {
         return getSharedPreferences().getString(NOW_USER_NAME, "") ?: ""
     }
 
-    fun setInitShopList(isInit: Boolean) {
+    fun setNeedInitShopList(isInit: Boolean) {
         getSharedPreferences().edit().putBoolean(INIT_SHOP_LIST, isInit).apply()
     }
 
-    fun getInitShopList(): Boolean {
-        return getSharedPreferences().getBoolean(INIT_SHOP_LIST, false)
+    fun isNeedInitShopList(): Boolean {
+        return getSharedPreferences().getBoolean(INIT_SHOP_LIST, true)
     }
 }

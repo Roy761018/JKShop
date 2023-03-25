@@ -41,7 +41,7 @@ class MyOrderHistoryAdapter(private val deleteAction: (String) -> Unit): Recycle
             shopOrderEntity.shopItemEntityList.forEach {
                 ItemShopListBinding.inflate(LayoutInflater.from(context), binging.llOrderItem, false).apply {
                     tvName.text = it.name
-                    tvPrice.text = it.price.toString()
+                    tvPrice.text = context.getString(R.string.dollars, it.price.toString())
                     binging.llOrderItem.addView(this.root)
                 }
             }

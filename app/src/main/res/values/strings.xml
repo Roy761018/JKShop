@@ -15,7 +15,7 @@
     <string name="log_out">登出</string>
     <string name="check_out_now">立即結帳</string>
     <string name="add_to_cart">加入購物車</string>
-    <string name="shop_item_price_text">商品價格：$ %s</string>
+    <string name="shop_item_price_text">商品價格：%s 元</string>
     <string name="shop_item_id_text">商品編號：%s</string>
     <string name="check_shop_cart">查看購物車</string>
     <string name="add_to_cart_success">加入至購物車成功</string>
@@ -24,7 +24,7 @@
     <string name="check_out_title">請確認以下欲購買商品資料是否正確</string>
     <string name="order_commit">提交訂單</string>
     <string name="order_commit_success_msg">購買成功，可以至我的頁面查看訂單記錄</string>
-    <string name="order_price">訂單金額：$ %s</string>
+    <string name="order_price">訂單金額：%s 元</string>
     <string name="order_serial_id">訂單編號：%s</string>
     <string name="order_create_time">訂單建立時間：%s</string>
     <string name="shop_cart_no_result_msg">目前購物車列表為空</string>
@@ -35,6 +35,8 @@
     <string name="delete_order_success">刪除訂單記錄成功</string>
     <string name="delete_order_fail">刪除失敗，請重新嘗試</string>
     <string name="exit_message">確定要離開 JKOShop？</string>
+    <string name="logout_message">確定要登出？</string>
+    <string name="dollars">%s 元</string>
 
 
     <!-- Title -->

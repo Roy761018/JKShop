@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.jkshop.R
 import com.example.jkshop.base.observeLiveData
+import com.example.jkshop.base.showAlertDialog
 import com.example.jkshop.base.showToastMsg
 import com.example.jkshop.databinding.ActivityMyInfoBinding
 import com.example.jkshop.layer.login.LoginActivity
@@ -36,6 +38,7 @@ class MyInfoActivity: AppCompatActivity() {
             myOrderHistoryAdapter = MyOrderHistoryAdapter { orderID ->
                 viewModel.deleteOrderHistory(orderID)
             }
+            addItemDecoration(DividerItemDecoration(this@MyInfoActivity, DividerItemDecoration.VERTICAL))
             adapter = myOrderHistoryAdapter
         }
 
@@ -48,9 +51,13 @@ class MyInfoActivity: AppCompatActivity() {
     }
 
     private fun logout() {
-        JkShopStaticValue.setNowUserName("")
-        finishAffinity()
-        startActivity(Intent(this, LoginActivity::class.java))
+        if (!isFinishing) {
+            showAlertDialog(getString(R.string.logout_message)) {
+                JkShopStaticValue.setNowUserName("")
+                finishAffinity()
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+        }
     }
 
     private fun initToolBar() {

@@ -2,7 +2,6 @@ package com.example.jkshop.layer.shoplist
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +15,6 @@ import com.example.jkshop.layer.my.MyInfoActivity
 import com.example.jkshop.layer.shopcart.JkoShopCartActivity
 import com.example.jkshop.layer.shopdetail.JkoShopDetailActivity
 import com.example.jkshop.layer.shopdetail.JkoShopDetailActivity.Companion.EXTRA_SHOP_ITEM_ID
-import com.example.jkshop.model.ShopItemEntity
 import com.example.jkshop.util.JkShopStaticValue
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.system.exitProcess
@@ -71,7 +69,7 @@ class JkoShopListActivity: AppCompatActivity() {
             startActivity(Intent(this@JkoShopListActivity, JkoShopCartActivity::class.java))
         }
 
-        if (!JkShopStaticValue.getInitShopList()) {
+        if (JkShopStaticValue.isNeedInitShopList()) {
             jkoShopListViewModel.initDefaultShopList()
         } else {
             jkoShopListViewModel.getShopList()
@@ -106,6 +104,9 @@ class JkoShopListActivity: AppCompatActivity() {
                 if (!isFinishing) {
                     showAlertDialog(getString(R.string.alert_msg), retryAction)
                 }
+            }
+            observeLiveData(initShopListSuccess) {
+                jkoShopListViewModel.getShopList()
             }
         }
     }
