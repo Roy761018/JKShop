@@ -14,7 +14,7 @@ class OrderRepository(private val roomManager: RoomManager): BaseRepository() {
         return createSingle { roomManager.getRoomDB().getOrderDao().generateOrder(orderEntity) }
     }
 
-    fun getUserOrderHistory(): Single<List<ShopOrderEntity>?> {
+    fun getUserOrderHistory(): Single<List<ShopOrderEntity>> {
         return createSingle {
             val username = JkShopStaticValue.getNowUserName()
             roomManager.getRoomDB().getOrderDao().getUserOrderHistory(username)

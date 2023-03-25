@@ -6,6 +6,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.example.jkshop.R
 import com.example.jkshop.base.observeLiveData
 import com.example.jkshop.base.showAlertDialog
@@ -14,6 +16,7 @@ import com.example.jkshop.layer.my.MyInfoActivity
 import com.example.jkshop.layer.shopcart.JkoShopCartActivity
 import com.example.jkshop.layer.shopdetail.JkoShopDetailActivity
 import com.example.jkshop.layer.shopdetail.JkoShopDetailActivity.Companion.EXTRA_SHOP_ITEM_ID
+import com.example.jkshop.model.ShopItemEntity
 import com.example.jkshop.util.JkShopStaticValue
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.system.exitProcess
@@ -26,6 +29,10 @@ class JkoShopListActivity: AppCompatActivity() {
 
     private val jkoShopListViewModel: JkoShopListViewModel by viewModel()
 
+    private val linearLayoutmanager: LinearLayoutManager by lazy {
+        LinearLayoutManager(this@JkoShopListActivity, LinearLayoutManager.VERTICAL, false)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShopListBinding.inflate(layoutInflater)
@@ -36,7 +43,7 @@ class JkoShopListActivity: AppCompatActivity() {
         binding.tvUserName.text = getString(R.string.welcome_title, JkShopStaticValue.getNowUserName())
 
         with(binding.rvShopList) {
-            layoutManager = LinearLayoutManager(this@JkoShopListActivity, LinearLayoutManager.VERTICAL, false)
+            layoutManager = linearLayoutmanager
             shopListAdapter = JkoShopListAdapter { item ->
                 Intent(this@JkoShopListActivity, JkoShopDetailActivity::class.java).apply {
                     putExtra(EXTRA_SHOP_ITEM_ID, item.shopId)
@@ -44,6 +51,16 @@ class JkoShopListActivity: AppCompatActivity() {
                 }
             }
             adapter = shopListAdapter
+            addOnScrollListener(object : OnScrollListener(){
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE &&
+                        linearLayoutmanager.findLastVisibleItemPosition() == (linearLayoutmanager.itemCount - 1)) {
+                        jkoShopListViewModel.currentPage++
+                        jkoShopListViewModel.getShopList()
+                    }
+                }
+            })
         }
 
         binding.ivMyInfo.setOnClickListener {
@@ -54,7 +71,11 @@ class JkoShopListActivity: AppCompatActivity() {
             startActivity(Intent(this@JkoShopListActivity, JkoShopCartActivity::class.java))
         }
 
-        jkoShopListViewModel.getShopList()
+        if (!JkShopStaticValue.getInitShopList()) {
+            jkoShopListViewModel.initDefaultShopList()
+        } else {
+            jkoShopListViewModel.getShopList()
+        }
 
         observeData()
     }
@@ -79,8 +100,7 @@ class JkoShopListActivity: AppCompatActivity() {
     private fun observeData() {
         jkoShopListViewModel.apply {
             observeLiveData(getShopList) {
-                shopListAdapter?.shopList = it
-                shopListAdapter?.notifyDataSetChanged()
+                shopListAdapter?.loadData(it)
             }
             observeLiveData(errorAlert) { retryAction ->
                 if (!isFinishing) {

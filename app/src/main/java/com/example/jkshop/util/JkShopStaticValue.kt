@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 object JkShopStaticValue {
 
     private const val NOW_USER_NAME = "NOW_USER_NAME"
+    private const val INIT_SHOP_LIST = "INIT_SHOP_LIST"
 
     private lateinit var context: Context
 
@@ -25,5 +26,13 @@ object JkShopStaticValue {
 
     fun getNowUserName(): String {
         return getSharedPreferences().getString(NOW_USER_NAME, "") ?: ""
+    }
+
+    fun setInitShopList(isInit: Boolean) {
+        getSharedPreferences().edit().putBoolean(INIT_SHOP_LIST, isInit).apply()
+    }
+
+    fun getInitShopList(): Boolean {
+        return getSharedPreferences().getBoolean(INIT_SHOP_LIST, false)
     }
 }

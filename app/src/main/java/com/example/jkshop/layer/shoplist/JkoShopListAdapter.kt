@@ -8,7 +8,12 @@ import com.example.jkshop.model.ShopItemEntity
 
 class JkoShopListAdapter(private val clickAction: (ShopItemEntity) -> Unit): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var shopList: List<ShopItemEntity> = listOf()
+    private var shopList: ArrayList<ShopItemEntity> = arrayListOf()
+
+    fun loadData(newList: List<ShopItemEntity>) {
+        shopList.addAll(newList)
+        notifyItemRangeInserted(itemCount, newList.size)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ItemShopListBinding.inflate(LayoutInflater.from(parent.context), parent, false).run {

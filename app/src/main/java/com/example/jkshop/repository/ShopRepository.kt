@@ -12,11 +12,11 @@ import io.reactivex.schedulers.Schedulers
 
 class ShopRepository(private val roomManager: RoomManager): BaseRepository() {
 
-    fun getShopItemList(): Single<List<ShopItemEntity>?> {
-        return createSingle { roomManager.getRoomDB().getShopItemDao().getShopItemList() }
+    fun getShopItemList(pageItemCount: Int, offset: Int): Single<List<ShopItemEntity>> {
+        return createSingle { roomManager.getRoomDB().getShopItemDao().getShopItemList(pageItemCount, offset) }
     }
 
-    fun getShopItemDetail(id: String): Single<ShopItemEntity?> {
+    fun getShopItemDetail(id: String): Single<ShopItemEntity> {
         return createSingle { roomManager.getRoomDB().getShopItemDao().getShopItemDetail(id) }
     }
 
@@ -28,7 +28,7 @@ class ShopRepository(private val roomManager: RoomManager): BaseRepository() {
         return createSingle { roomManager.getRoomDB().getShopItemDao().insertItemToShopCart(shopCartItem) }
     }
 
-    fun getShoppingCartList(): Single<List<ShopItemEntity>?> {
+    fun getShoppingCartList(): Single<List<ShopItemEntity>> {
         return createSingle { val username = JkShopStaticValue.getNowUserName()
             roomManager.getRoomDB().getShopItemDao().getShoppingCartItemList(username)
         }

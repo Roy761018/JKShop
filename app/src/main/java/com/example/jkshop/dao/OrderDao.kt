@@ -22,7 +22,7 @@ interface OrderDao {
      *  取得用戶訂單歷史紀錄
      */
     @Query("SELECT * FROM ShopOrderEntity WHERE buyerUsername = (:userName)")
-    fun getUserOrderHistory(userName: String): List<ShopOrderEntity>?
+    fun getUserOrderHistory(userName: String): List<ShopOrderEntity>
 
     /**
      *  刪除用戶訂單歷史紀錄
