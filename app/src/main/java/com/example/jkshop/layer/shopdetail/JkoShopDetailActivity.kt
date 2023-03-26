@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.jkshop.R
 import com.example.jkshop.base.observeLiveData
+import com.example.jkshop.base.showAlertDialog
 import com.example.jkshop.base.showToastMsg
 import com.example.jkshop.databinding.ActivityShopDetailBinding
 import com.example.jkshop.layer.order.JkoShopOrderConfirmActivity
@@ -83,6 +84,11 @@ class JkoShopDetailActivity: AppCompatActivity() {
                     onBackPressed()
                 } else {
                     showToastMsg(getString(R.string.add_to_cart_fail))
+                }
+            }
+            observeLiveData(errorAlert) {
+                showAlertDialog(getString(R.string.alert_msg)) {
+                    it.invoke()
                 }
             }
         }
